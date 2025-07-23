@@ -12,10 +12,9 @@
   "assignees": [
     "yuzichen12123"
   ],
-  "ignorePaths": [
-    "**/tools/**",
-    "staging/src/**",
-    "!staging/src/k8s.io/kubectl/**"
+  "includePaths": [
+    "go.mod",
+    "**/kubectl/**"
   ],
   "enabledManagers": ["gomod"]
 }
