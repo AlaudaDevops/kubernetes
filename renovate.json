@@ -18,5 +18,11 @@
     "go.sum",
     "**/kubectl/**"
   ],
+  "postUpgradeTasks": {
+    "commands": [
+      "go work use"
+    ],
+    "fileFilters": ["go.work"]
+  },
   "enabledManagers": ["gomod"]
 }
