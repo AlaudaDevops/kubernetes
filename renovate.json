@@ -4,6 +4,18 @@
     "github>AlaudaDevops/renovate-config:base"
   ],
   "baseBranches": [
-    "$default"
-  ]
+    "/^alauda-v.*/"
+  ],
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
+  "assignees": [
+    "yuzichen12123"
+  ],
+  "ignorePaths": [
+    "**/tools/**",
+    "staging/src/**",
+    "!staging/src/k8s.io/kubectl/**"
+  ],
+  "enabledManagers": ["gomod"]
 }
