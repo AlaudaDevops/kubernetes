@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>AlaudaDevops/renovate-config:base"
+  ],
+  "baseBranches": [
+    "/^alauda-v.*/"
+  ],
+  "postUpdateOptions": [
+    "gomodTidy"
+  ],
+  "assignees": [
+    "yuzichen12123"
+  ],
+  "ignorePaths": [
+    "**/tools/**",
+    "staging/src/**",
+    "!staging/src/k8s.io/kubectl/**"
+  ],
+  "enabledManagers": ["gomod"]
+}
