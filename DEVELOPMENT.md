@@ -1,64 +1,64 @@
-# Kubectl alauda 分支开发指南
+# Kubectl alauda Branch Development Guide
 
-## 背景
+## Background
 
-此前，kubectl 作为通用的 cli，在多个插件中都有被使用，需要各自修复 kubectl 自身的漏洞。
+Previously, kubectl, as a general-purpose CLI, was used across multiple plugins, each needing to fix vulnerabilities in kubectl itself.
 
-为了避免重复工作，所以我们基于 [kubectl](https://github.com/kubernetes/kubernetes.git) fork 出了当前仓库，并通过 `alauda-vx.xx.xx` 分支来维护。
+To avoid duplicate work, we forked the current repository based on [kubectl](https://github.com/kubernetes/kubernetes.git) and maintain it through the `alauda-vx.xx.xx` branches.
 
-使用 [renovate](https://gitlab-ce.alauda.cn/devops/tech-research/renovate/-/blob/main/docs/quick-start/0002-quick-start.md) 自动修复对应版本上的漏洞。
+We use [renovate](https://gitlab-ce.alauda.cn/devops/tech-research/renovate/-/blob/main/docs/quick-start/0002-quick-start.md) to automatically fix vulnerabilities in corresponding versions.
 
-## 仓库结构
+## Repository Structure
 
-在原有代码的基础上，添加了以下内容：
+Based on the original code, the following content has been added:
 
-- [alauda-auto-tag.yaml](./.github/workflows/alauda-auto-tag.yaml): PR 合并到 `alauda-vx.xx.xx` 分支时，自动打 tag，并触发 goreleaser
-- [release-alauda.yaml](./.github/workflows/release-alauda.yaml): 支持 tag 更新或手动触发 goreleaser（action 里自动创建 tag 时不会触发该流水线，因为 action 的设计是不会递归触发多个 action）
-- [reusable-release-alauda.yaml](./.github/workflows/reusable-release-alauda.yaml): 执行 goreleaser 创建 release
-- [scan-alauda.yaml](.github/workflows/scan-alauda.yaml): 执行 trivy 扫描漏洞（`rootfs` 扫描 go binary）
-- [.goreleaser-alauda.yml](.goreleaser-alauda.yml): 发布 alauda 版本的 release 的配置文件
+- [alauda-auto-tag.yaml](./.github/workflows/alauda-auto-tag.yaml): Automatically tags and triggers goreleaser when a PR is merged into the `alauda-vx.xx.xx` branch.
+- [release-alauda.yaml](./.github/workflows/release-alauda.yaml): Supports triggering goreleaser via tag updates or manual actions (note that this pipeline won't be triggered if a tag is created automatically within an action due to design limitations).
+- [reusable-release-alauda.yaml](./.github/workflows/reusable-release-alauda.yaml): Executes goreleaser to create a release.
+- [scan-alauda.yaml](.github/workflows/scan-alauda.yaml): Runs trivy vulnerability scans ([rootfs](file://D:\code\alauda-kubernetes-2\cluster\gce\gci\mounter\mounter.go#L30-L30) scans Go binaries).
+- [.goreleaser-alauda.yml](.goreleaser-alauda.yml): Configuration file for releasing alauda versions.
 
-## 特殊改动
+## Special Modifications
 
-1. 官方没有提供自动化测试的 Github Action，所以自行写了个 [test-alauda.yaml](.github/workflows/test-alauda.yaml)，执行 `go test`
+1. The official project does not provide GitHub Actions for automated testing, so we wrote our own [test-alauda.yaml](.github/workflows/test-alauda.yaml) to execute `go test`.
 
-## 流水线
+## Pipelines
 
-### 提 PR 时触发
+### Triggered on PR Submission
 
-- [test-alauda.yaml](.github/workflows/test-alauda.yaml): 执行官方的测试 `make test`
+- [test-alauda.yaml](.github/workflows/test-alauda.yaml): Executes the official tests with `make test`.
 
-### 合并到 alauda-vx.xx.xx 分支时触发
+### Triggered on Merge to alauda-vx.xx.xx Branch
 
-- [alauda-auto-tag.yaml](.github/workflows/alauda-auto-tag.yaml): 自动打 tag，并触发 goreleaser
-- [reusable-release-alauda.yaml](.github/workflows/reusable-release-alauda.yaml): 执行 goreleaser 创建 release（由 `alauda-auto-tag.yaml` 触发）
+- [alauda-auto-tag.yaml](.github/workflows/alauda-auto-tag.yaml): Automatically tags and triggers goreleaser.
+- [reusable-release-alauda.yaml](.github/workflows/reusable-release-alauda.yaml): Executes goreleaser to create a release (triggered by `alauda-auto-tag.yaml`).
 
-### 定时或手动触发
+### Scheduled or Manual Triggering
 
-- [scan-alauda.yaml](.github/workflows/scan-alauda.yaml): 执行 trivy 扫描漏洞（`rootfs` 扫描 go binary）
+- [scan-alauda.yaml](.github/workflows/scan-alauda.yaml): Runs trivy vulnerability scans ([rootfs](file://D:\code\alauda-kubernetes-2\cluster\gce\gci\mounter\mounter.go#L30-L30) scans Go binaries).
 
-### 其他
+### Others
 
-其他官方维护的流水线没有做改动，在 Action 页面上禁用了一些无关的流水线。
+Other officially maintained pipelines remain unchanged; some irrelevant pipelines have been disabled on the Actions page.
 
-## renovate 漏洞修复机制
+## Renovate Vulnerability Fixing Mechanism
 
-renovate 的配置文件是 [renovate.json](https://github.com/AlaudaDevops/trivy/blob/main/renovate.json)
+The renovate configuration file is [renovate.json](https://github.com/AlaudaDevops/trivy/blob/main/renovate.json)
 
-1. renovate 检测到分支存在漏洞，提 PR 修复
-2. PR 自动执行测试
-3. 所有测试通过后，renovate 自动合并 PR
-4. 分支更新后，通过 action 自动打 tag（例：v0.62.1-alauda-0，patch 版本和最后一位都会递增）
-5. goreleaser 基于 tag 自动发布 release
+1. renovate detects vulnerabilities in a branch and submits a PR for fixes.
+2. Tests are automatically executed upon PR submission.
+3. After all tests pass, renovate automatically merges the PR.
+4. Upon branch update, an action automatically tags the commit (e.g., v0.62.1-alauda-0, where both patch version and last digit increment).
+5. goreleaser automatically publishes a release based on the tag.
 
-## 维护方案
+## Maintenance Plan
 
-当需要升级新版本时，按照以下步骤执行：
+When upgrading to a new version, follow these steps:
 
-1. 从对应 tag 拉出 alauda 分支，例如 `v0.62.1` tag 对应 `alauda-v0.62.1` 分支
-2. 将此前的 alauda 分支改动 cherry-pick 到新分支，并 push
+1. Create an alauda branch from the corresponding tag, e.g., tag `v0.62.1` corresponds to branch `alauda-v0.62.1`.
+2. Cherry-pick previous alauda branch changes to the new branch and push.
 
-renovate 自动修复机制：
-1. renovate 提 PR 后，会自动跑流水线，若所有测试通过，则 PR 将会被自动合并
-2. 合并到 `alauda-v0.62.1` 分支后，goreleaser 会自动创建出 `v0.62.2-alauda-0` release（注意：不是 `v0.62.1-alauda-0`，因为升级版本才能让 renovate 识别到）
-3. 其他插件中配置的 renovate 会根据配置自动从 release 中获取制品
+Renovate automatic fixing mechanism:
+1. After renovate submits a PR, pipelines will run automatically. If all tests pass, the PR will be merged automatically.
+2. After merging into the `alauda-v0.62.1` branch, goreleaser will automatically create a `v0.62.2-alauda-0` release (note: not `v0.62.1-alauda-0`, because upgrading the version allows renovate to recognize it).
+3. Other plugins configured with renovate will automatically fetch artifacts from the release according to their configurations.
