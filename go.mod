@@ -6,7 +6,7 @@
 
 module k8s.io/kubernetes
 
-go 1.25.2
+go 1.25.3
 
 godebug default=go1.24
 
