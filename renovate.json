@@ -24,5 +24,8 @@
     ],
     "fileFilters": ["go.work"]
   },
+  "allowedPostUpgradeCommands": [
+    "^go work use(\\s+.*)?$"
+  ],
   "enabledManagers": ["gomod"]
 }
