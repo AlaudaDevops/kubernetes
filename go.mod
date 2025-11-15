@@ -23,7 +23,7 @@ require (
 	github.com/coreos/go-oidc v2.3.0+incompatible
 	github.com/coreos/go-systemd/v22 v22.5.0
 	github.com/cpuguy83/go-md2man/v2 v2.0.4
-	github.com/cyphar/filepath-securejoin v0.4.1
+	github.com/cyphar/filepath-securejoin v0.6.0
 	github.com/distribution/reference v0.6.0
 	github.com/docker/go-units v0.5.0
 	github.com/emicklei/go-restful/v3 v3.11.0
@@ -47,7 +47,7 @@ require (
 	github.com/onsi/ginkgo/v2 v2.21.0
 	github.com/onsi/gomega v1.35.1
 	github.com/opencontainers/cgroups v0.0.1
-	github.com/opencontainers/selinux v1.11.1
+	github.com/opencontainers/selinux v1.13.0
 	github.com/pkg/errors v0.9.1
 	github.com/pmezard/go-difflib v1.0.0
 	github.com/prometheus/client_golang v1.22.0
@@ -56,7 +56,7 @@ require (
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/pflag v1.0.5
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	github.com/vishvananda/netlink v1.3.1-0.20250206174618-62fb240731fa
 	github.com/vishvananda/netns v0.0.4
 	go.etcd.io/etcd/api/v3 v3.5.21
@@ -126,6 +126,7 @@ require (
 
 require (
 	cel.dev/expr v0.19.1 // indirect
+	cyphar.com/go-pathrs v0.2.1 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20230124172434-306776ec8161 // indirect
 	github.com/MakeNowJust/heredoc v1.0.0 // indirect
 	github.com/NYTimes/gziphandler v1.1.1 // indirect
