@@ -6,9 +6,9 @@
 
 module k8s.io/kubernetes
 
-go 1.24.11
+go 1.25.5
 
-godebug default=go1.24
+godebug default=go1.25
 
 require (
 	bitbucket.org/bertimus9/systemstat v0.5.0
