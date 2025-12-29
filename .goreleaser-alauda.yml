@@ -24,6 +24,18 @@ builds:
       - arm64
     ldflags:
       - -w -s -extldflags '-static'
+      - -X k8s.io/component-base/version.gitVersion=v{{ .Version }}
+      - -X k8s.io/component-base/version.gitCommit={{ .FullCommit }}
+      - -X k8s.io/component-base/version.gitTreeState=clean
+      - -X k8s.io/component-base/version.buildDate={{ .Date }}
+      - -X k8s.io/component-base/version.gitMajor={{ .Major }}
+      - -X k8s.io/component-base/version.gitMinor={{ .Minor }}
+      - -X k8s.io/client-go/pkg/version.gitVersion=v{{ .Version }}
+      - -X k8s.io/client-go/pkg/version.gitCommit={{ .FullCommit }}
+      - -X k8s.io/client-go/pkg/version.gitTreeState=clean
+      - -X k8s.io/client-go/pkg/version.buildDate={{ .Date }}
+      - -X k8s.io/client-go/pkg/version.gitMajor={{ .Major }}
+      - -X k8s.io/client-go/pkg/version.gitMinor={{ .Minor }}
     main: ./cmd/kubectl
     binary: alauda-kubectl
 
