@@ -1,0 +1,45 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: tektoncd-tools-kubernetes
+  title: Tektoncd Tools - Kubernetes (kubectl)
+  description: Kubernetes 上游 fork，用于提供 kubectl 二进制到 Tekton 任务镜像（kubectl、kubectl-app-manager、helm 等）中，支持流水线内对 Kubernetes 资源的管理操作。
+  tags:
+    - tool
+    - kubernetes
+    - open-source-fork
+  links:
+    - url: https://github.com/AlaudaDevops/kubernetes
+      title: GitHub Repository
+      icon: github
+    - url: https://build-sonar.alauda.cn/dashboard?id=github.com-AlaudaDevops-kubernetes
+      title: SonarQube
+      icon: dashboard
+    - url: https://github.com/kubernetes/kubernetes
+      title: Upstream Repository
+      icon: github
+  annotations:
+    # github plugin
+    github.com/project-slug: AlaudaDevops/kubernetes
+    # sonarqube plugin
+    sonarqube.org/project-key: github.com-AlaudaDevops-kubernetes
+    # 开源组件代码仓库地址，格式：${url}/${project}/${repo}
+    acp.cpaas.io/open-source-component-repo: https://github.com/kubernetes/kubernetes
+    # 开源组件的版本信息，只适用于开源组件，自研组件默认不收集版本信息,格式 ${version}
+    acp.cpaas.io/open-source-component-version: v1.33.8
+    # 开源组件的license信息,格式 ${license}
+    acp.cpaas.io/open-source-component-license: Apache
+    # 开源组件的license地址,格式 ${url}/${project}/${repo}/${license-path}
+    acp.cpaas.io/open-source-component-license_url: https://github.com/kubernetes/kubernetes/blob/master/LICENSE
+    # backstage techdocs plugin
+    backstage.io/techdocs-ref: dir:../
+    acp.cpaas.io/owner: qingliu@alauda.io
+
+    # 组件属性，区别是否部署时必带的核心组件,可选值为 core 和 plugin。
+    acp.cpaas.io/functional-attributes: plugin
+
+spec:
+  type: service
+  system: system:alauda-devops-system
+  lifecycle: production
+  owner: devops
