@@ -203,7 +203,7 @@ require (
 	go.etcd.io/etcd/client/v2 v2.305.21 // indirect
 	go.etcd.io/etcd/pkg/v3 v3.5.21 // indirect
 	go.etcd.io/etcd/raft/v3 v3.5.21 // indirect
-	go.etcd.io/etcd/server/v3 v3.5.21 // indirect
+	go.etcd.io/etcd/server/v3 v3.5.33 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.58.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.33.0 // indirect
