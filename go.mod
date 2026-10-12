@@ -60,7 +60,7 @@ require (
 	github.com/vishvananda/netlink v1.3.1-0.20250206174618-62fb240731fa
 	github.com/vishvananda/netns v0.0.4
 	go.etcd.io/etcd/api/v3 v3.5.21
-	go.etcd.io/etcd/client/pkg/v3 v3.5.21
+	go.etcd.io/etcd/client/pkg/v3 v3.5.33
 	go.etcd.io/etcd/client/v3 v3.5.21
 	go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful v0.44.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.58.0
