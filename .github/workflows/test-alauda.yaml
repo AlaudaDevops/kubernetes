@@ -1,0 +1,24 @@
+name: Go Test For Alauda
+
+on:
+  push:
+    branches: [ alauda-v* ]
+  pull_request:
+    branches: [ alauda-v* ]
+
+jobs:
+  test:
+    name: Run Go Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Run tests
+        run: go test ./staging/src/k8s.io/kubectl/... -v
